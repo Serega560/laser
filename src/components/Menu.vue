@@ -184,12 +184,12 @@ const menuItems = [
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 0 15px;
+    background-color: var(--color-havelock-blue);
 
     @include vp-767 {
       display: flex;
       position: absolute;
-      width: 50%;
+      width: 100%;
       flex-direction: column;
       gap: 15px 0;
       right: 0;
@@ -197,19 +197,24 @@ const menuItems = [
       text-align: right;
       background: var(--color-havelock-blue);
       color: var(--color-default-white);
-      height: 400px;
+      height: 450px;
       padding: 30px 0;
       justify-content: flex-end;
+      z-index: 1;
+
+      @include vp-767 {
+        padding: 0;
+        justify-content: center;
+      }
     }
 
     .menu__link {
       font-size: 30px;
       padding: 10px 20px;
-      color: var(--color-bright-grey);
-      background-color: inherit;
+      color: var(--color-havelock-blue);
+      background-color: var(--color-default-white);
       border: none;
       transition: all 0.3s;
-      border-radius: 10px;
 
       @include vp-767 {
         font-size: 26px;
@@ -225,6 +230,7 @@ const menuItems = [
 
         @include vp-767 {
           color: var(--color-default-white);
+          background-color: var(--color-havelock-blue);
         }
       }
     }

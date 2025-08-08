@@ -1,5 +1,7 @@
 <script setup>
-import WhatsappIcon from '@/assets/icons/whatsapp.svg'
+import WhatsappIcon from '@/assets/icons/social/whatsapp.svg'
+import TelegramIcon from '@/assets/icons/social/telegram.svg'
+import VkIcon from '@/assets/icons/social/vk.svg'
 
 defineProps({
   position: {
@@ -13,15 +15,17 @@ defineProps({
 <template>
   <ul :class="['social', `social--${position}`]">
     <li class="social__item social__item--telegram">
-      <a href="https://t.me/katerina_browka">
-        <svg width="30" height="30" viewBox="0 0 30 30">
-          <use xlink:href="#icon-telegram" />
-        </svg>
+      <a href="https://t.me/kytyryn_browka" target="_blank">
+        <TelegramIcon />
       </a>
     </li>
     <li class="social__item social__item--whatsapp">
-      <a href="https://wa.me/79261283908" target="_blank">
+      <a href="https://wa.me/79281383908" target="_blank">
         <WhatsappIcon />
+      </a>
+    </li><li class="social__item social__item--vk">
+      <a href="https://wa.me/79281383908" target="_blank">
+        <VkIcon />
       </a>
     </li>
   </ul>
@@ -37,7 +41,7 @@ defineProps({
 
   @include vp-767 {
     gap: 0 8px;
-    order: -1;
+    order: -3;
   }
 
   .social__item {
@@ -48,7 +52,7 @@ defineProps({
 
       &:hover {
         svg {
-          transform: scale(1.1);
+          transform: scale(1.2);
         }
       }
 

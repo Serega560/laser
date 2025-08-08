@@ -5,12 +5,9 @@ import Logo from '@/assets/img/logo.png'
 
 <template>
   <div class="logo">
-    <a class="img" href="#">
+    <a class="img" href="index.html">
       <img :src="Logo" alt="Logo" class="logo-img"/>
     </a>
-    <p class="logo__text">лазерная <br>
-      резка <br>
-      неметаллов</p>
   </div>
 </template>
 
@@ -20,32 +17,26 @@ import Logo from '@/assets/img/logo.png'
 
 .logo {
   display: flex;
-  gap: 10px 0;
   margin-right: auto;
+
+  @include vp-767 {
+    margin: 0;
+    order: -2;
+  }
 
   .img {
     border: none;
 
-    @include vp-767 {
-      order: -2;
-    }
-
     .logo-img {
       border-radius: 50%;
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
 
       @include vp-767 {
         width: 50px;
         height: 50px;
       }
     }
-  }
-
-  .logo__text {
-    font-size: 26px;
-    line-height: 32px;
-    font-family: 'BankGothic', sans-serif;
   }
 }
 

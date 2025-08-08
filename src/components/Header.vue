@@ -27,7 +27,6 @@ import Telephone from '@/components/Telephone.vue'
 .header {
   position: relative;
   display: flex;
-  justify-content: space-between;
   background-color: var(--color-default-white);
 
   .header-block {
@@ -35,11 +34,12 @@ import Telephone from '@/components/Telephone.vue'
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
-    padding: 10px 0;
-    gap: 15px 15px;
+    padding: 10px 0 20px;
+    gap: 0 15px;
 
     @include vp-767 {
       padding: 8px 0;
+      justify-content: space-between;
     }
   }
 }
