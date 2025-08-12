@@ -6,6 +6,9 @@ import About from "@/components/About.vue";
 import Advantages from "@/components/Advantages.vue";
 import Work from "@/components/Work.vue";
 import Products from "@/components/Products.vue";
+import Faq from "@/components/Faq.vue";
+import Form from "@/components/Form.vue";
+
 </script>
 
 <template>
@@ -15,6 +18,8 @@ import Products from "@/components/Products.vue";
   <Advantages />
   <Work />
   <Products />
+  <Faq />
+  <Form />
 </template>
 
 

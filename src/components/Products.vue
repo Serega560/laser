@@ -65,7 +65,7 @@ const imagesProducts = [
   .products__title {
     color: var(--color-bright-grey);
     font-size: 34px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     text-align: center;
     text-transform: uppercase;
 
@@ -76,11 +76,12 @@ const imagesProducts = [
   }
 
   .products__img {
+    object-fit: cover;
 
     @include vp-767 {
       width: 100%;
       height: 100%;
-      min-height: 300px;
+      min-height: 385px;
     }
   }
 }

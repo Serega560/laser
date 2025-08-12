@@ -218,6 +218,7 @@ const menuItems = [
 
       @include vp-767 {
         font-size: 26px;
+        background-color: var(--color-havelock-blue);
         color: var(--color-default-white);
         text-align: end;
         padding: 7px 15px;
