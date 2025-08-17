@@ -43,10 +43,10 @@
   }
 
   .hero__block {
-    padding-top: 170px;
+    padding-top: 220px;
 
     @include vp-767 {
-      padding-top: 285px;
+      padding-top: 320px;
     }
 
     div {
@@ -57,24 +57,25 @@
 
       @include vp-767 {
         width: 100%;
+        padding: 10px;
       }
     }
 
     .hero__title {
       color: var(--color-default-white);
-      font-size: 40px;
-      line-height: 40px;
-      margin-bottom: 6px;
+      font-size: 30px;
+      line-height: 30px;
+      margin-bottom: 5px;
 
       @include vp-767 {
-        font-size: 24px;
-        line-height: 24px;
+        font-size: 18px;
+        line-height: 18px;
         margin-bottom: 0;
       }
     }
 
     .hero__text {
-      font-size: 24px;
+      font-size: 20px;
       color: var(--color-default-white);
 
       @include vp-767 {

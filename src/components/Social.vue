@@ -127,9 +127,8 @@ defineProps({
     @include vp-767 {
       order: 1;
       flex-direction: column;
-      gap: 30px 0;
-      margin-top: 8px;
-      align-self: flex-start;
+      gap: 10px 0;
+      align-items: center;
     }
 
     .social__item {
@@ -142,6 +141,11 @@ defineProps({
           padding: 0;
           border: 0;
           font-size: 0;
+
+          svg {
+            width: 35px;
+            height: 35px;
+          }
         }
       }
     }

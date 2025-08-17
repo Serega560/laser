@@ -8,6 +8,7 @@ import Work from "@/components/Work.vue";
 import Products from "@/components/Products.vue";
 import Faq from "@/components/Faq.vue";
 import Form from "@/components/Form.vue";
+import Footer from "@/components/Footer.vue";
 
 </script>
 
@@ -20,6 +21,7 @@ import Form from "@/components/Form.vue";
   <Products />
   <Faq />
   <Form />
+  <Footer />
 </template>
 
 

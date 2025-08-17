@@ -1,10 +1,16 @@
 <script setup>
 import Logo from '@/assets/img/logo.png'
 
+defineProps({
+  inFooter: {
+    type: Boolean,
+    default: false
+  }
+})
 </script>
 
 <template>
-  <div class="logo">
+  <div class="logo" :class="{ 'logo--footer': inFooter }">
     <a class="img" href="index.html">
       <img :src="Logo" alt="Logo" class="logo-img"/>
     </a>
@@ -40,5 +46,12 @@ import Logo from '@/assets/img/logo.png'
   }
 }
 
+.logo--footer {
+  margin: 0;
+
+  @include vp-767 {
+    display: none;
+  }
+}
 
 </style>

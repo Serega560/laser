@@ -59,7 +59,7 @@ const toggle = async (index) => {
 </script>
 
 <template>
-  <div class="faq">
+  <div class="faq" id="faq">
     <div class="container">
       <h2 class="faq__title">Часто задаваемые вопросы</h2>
       <div class="faq__list">
@@ -93,7 +93,7 @@ const toggle = async (index) => {
 @use '@/assets/styles/container.scss' as *;
 
 .faq {
-  padding: 70px 0 200px;
+  padding: 80px;
 
   @include vp-767 {
     padding: 30px 0;
@@ -105,6 +105,7 @@ const toggle = async (index) => {
   font-size: 34px;
   margin-bottom: 20px;
   text-transform: uppercase;
+  color: var(--color-bright-grey);
 
   @include vp-767 {
     margin-bottom: 25px;
@@ -128,6 +129,7 @@ const toggle = async (index) => {
   font-size: 24px;
   cursor: pointer;
   transition: all 0.7s;
+  color: var(--color-bright-grey);
 
   @include vp-767 {
     font-size: 18px;
@@ -145,7 +147,7 @@ const toggle = async (index) => {
     background: linear-gradient(
             to right,
             rgba(255, 255, 255, 0.1) 0%,
-            rgba(100, 149, 237, 0.6) 85%,
+            var(--color-medium-sea-green) 70%,
             rgba(255, 255, 255, 0.8) 100%
     );
     opacity: 0;
@@ -174,7 +176,8 @@ const toggle = async (index) => {
 
   &:hover {
     .faq__icon {
-      background-color: var(--color-havelock-blue);
+      background-color: var(--color-medium-sea-green);
+      border: 1px solid var(--color-medium-sea-green);
 
       @include vp-767 {
         background-color: var(--color-default-white);
@@ -185,7 +188,7 @@ const toggle = async (index) => {
         background-color: var(--color-default-white);
 
         @include vp-767 {
-          background-color: var(--color-default-black);
+          background-color: var(--color-bright-grey);
         }
       }
 
@@ -198,7 +201,11 @@ const toggle = async (index) => {
         }
 
         &:before {
-          background-color: var(--color-medium-sea-green);
+          background-color: var(--color-default-white);
+
+          @include vp-767 {
+            background-color: var(--color-medium-sea-green);
+          }
         }
       }
     }
@@ -212,14 +219,13 @@ const toggle = async (index) => {
   width: 33px;
   height: 33px;
   border-radius: 50%;
-  border: 2px solid currentColor;
+  border: 1px solid currentColor;
   position: relative;
   transition: all 0.4s ease;
 
   @include vp-767 {
     width: 28px;
     height: 28px;
-    border: 1px solid currentColor;
   }
 
   &::before,
@@ -231,22 +237,20 @@ const toggle = async (index) => {
   }
 
   &::before {
-    width: 2px;
+    width: 1px;
     height: 20px;
 
     @include vp-767 {
-      width: 1px;
       height: 17px;
     }
   }
 
   &::after {
     width: 20px;
-    height: 2px;
+    height: 1px;
 
     @include vp-767 {
       width: 17px;
-      height: 1px;
     }
   }
 

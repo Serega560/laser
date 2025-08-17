@@ -21,7 +21,7 @@ const imagesProducts = [
 </script>
 
 <template>
-  <div class="products">
+  <div class="products" id="products">
     <div class="container">
       <h2 class="products__title">Наши работы</h2>
 

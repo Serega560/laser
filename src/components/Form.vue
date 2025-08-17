@@ -1,72 +1,125 @@
 <script setup>
-import { ref } from "vue";
+import {ref} from "vue";
+import emailjs from "@emailjs/browser";
+
+// замените на свои значения из EmailJS
+const SERVICE_ID = "service_h9spmb8";
+const TEMPLATE_ID = "template_3nuim58";
+const PUBLIC_KEY = "atci2mh2vg7ROJnkQ";
+
+const formRef = ref(null);
 
 const name = ref("");
-const contact = ref("");
+const email = ref("");
+const phone = ref("");
 const comment = ref("");
-const file = ref(null);
-const fileName = ref("");
 const loading = ref(false);
 
-function handleFile(event) {
-  file.value = event.target.files[0];
-  fileName.value = file.value ? file.value.name : "";
+// файл (для отображения названия)
+const fileName = ref("📎 Прикрепить файл");
+
+function handleFile(e) {
+  const f = e.target.files?.[0] || null;
+  fileName.value = f ? `Файл: ${f.name}` : "📎 Прикрепить файл";
 }
 
+// ===== валидация =====
+function validateEmail(v) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+}
+
+function validatePhone(v) {
+  return /^\+7\d{10}$/.test(v);
+}
+
+function onPhoneFocus() {
+  if (!phone.value) phone.value = "+7";
+}
+
+function onPhoneInput(e) {
+  let v = e.target.value;
+  phone.value = v.startsWith("+") ? "+" + v.slice(1).replace(/\D/g, "") : v.replace(/\D/g, "");
+}
+
+// ===== отправка через EmailJS =====
 async function sendForm() {
-  if (!file.value) {
-    alert("Пожалуйста, прикрепите файл");
+  if (!email.value && !phone.value) {
+    alert("Пожалуйста, укажите Email или Телефон.");
+    return;
+  }
+  if (email.value && !validateEmail(email.value)) {
+    alert("Пожалуйста, введите корректный Email.");
+    return;
+  }
+  if (phone.value && !validatePhone(phone.value)) {
+    alert("Пожалуйста, введите номер в формате +7XXXXXXXXXX.");
     return;
   }
 
-  loading.value = true;
-  const formData = new FormData();
-  formData.append("name", name.value);
-  formData.append("contact", contact.value);
-  formData.append("comment", comment.value);
-  formData.append("file", file.value);
+  try {
+    loading.value = true;
 
-  await fetch("http://localhost:3000/send", {
-    method: "POST",
-    body: formData
-  });
+    // sendForm сам соберёт все поля и файл из formRef
+    await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.value, {
+      publicKey: PUBLIC_KEY,
+    });
 
-  loading.value = false;
-  alert("Заявка отправлена!");
+    alert("Заявка отправлена!");
+    // сбрасываем всё
+    formRef.value.reset();
+    name.value = "";
+    email.value = "";
+    phone.value = "";
+    comment.value = "";
+    fileName.value = "📎 Прикрепить файл";
+  } catch (err) {
+    console.error("EmailJS error:", err);
+    alert(`Ошибка: ${err?.text || err?.message || "Неизвестная ошибка"}`);
+  } finally {
+    loading.value = false;
+  }
 }
-
 </script>
 
 <template>
-  <div class="form">
+  <div class="form" id="form">
     <div class="container">
       <div class="form__block">
         <div class="form__header">
           <h2 class="form__title">Ваш проект</h2>
-          <p class="form__description">Расскажите нам о вашем проекте и мы свяжемся с вами в ближайшее время</p>
+          <p class="form__description">
+            Расскажите нам о вашем проекте и мы свяжемся с вами в ближайшее время
+          </p>
           <h3>Укажите в комментарии следующие данные:</h3>
           <ul>
-            <li>
-              <p>материал</p>
-            </li>
-            <li>
-              <p>размер</p>
-            </li>
-            <li>
-              <p>сроки</p>
-            </li>
+            <li><p>материал</p></li>
+            <li><p>размер</p></li>
+            <li><p>количество деталей</p></li>
+            <li><p>сроки</p></li>
           </ul>
           <p class="form__text">* Дополнительно вы можете прикрепить файл с вашими чертежами</p>
         </div>
-        <form class="form__main" @submit.prevent="sendForm">
-          <input type="text" v-model="name" placeholder="Имя" required>
-          <input type="text" v-model="contact" placeholder="Телефон или Email" required>
-          <textarea v-model="comment" rows="7" placeholder="Комментарий"></textarea>
 
-          <!-- Кастомное поле файла -->
-          <input type="file" id="file" @change="handleFile" required>
+        <!-- ВАЖНО: ref="formRef" и name-атрибуты -->
+        <form ref="formRef" class="form__main" @submit.prevent="sendForm">
+          <input type="text" name="from_name" v-model="name" placeholder="Имя" required/>
+
+          <input
+              type="tel"
+              name="from_phone"
+              v-model="phone"
+              @focus="onPhoneFocus"
+              @input="onPhoneInput"
+              placeholder="Телефон"
+          />
+
+          <input type="email" name="from_email" v-model="email" placeholder="Email"/>
+          <textarea name="message" v-model="comment" rows="2" placeholder="Комментарий"></textarea>
+
+          <!-- ФАЙЛ: имя поля 'attachment' (EmailJS распознаёт как вложение) -->
+          <input type="file" id="file" name="attachment" @change="handleFile"/>
           <label for="file" class="file-label">
-            {{ fileName || "📎 Прикрепить файл" }}
+            {{ fileName }}
           </label>
 
           <button type="submit" :disabled="loading">
@@ -78,18 +131,17 @@ async function sendForm() {
   </div>
 </template>
 
-
 <style scoped lang="scss">
 @use '@/assets/styles/media.scss' as *;
 @use '@/assets/styles/container.scss' as *;
 
 .form {
-  padding: 70px 0 200px;
+  padding: 80px 0;
   background: #f9f9f9;
 
   .form__block {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 400px 1fr;
     gap: 50px;
 
     @media (max-width: 768px) {
@@ -101,40 +153,43 @@ async function sendForm() {
       background: white;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 
       @include vp-767 {
         padding: 25px 20px;
       }
 
       .form__title {
-        font-size: 36px;
+        font-size: 34px;
         font-weight: 600;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         text-transform: uppercase;
+        color: var(--color-bright-grey);
 
-        @media (max-width: 768px) {
+
+        @include vp-767 {
           font-size: 24px;
         }
       }
 
       .form__description {
-        font-size: 18px;
+        font-size: 20px;
         color: #555;
         margin-bottom: 20px;
       }
 
       h3 {
-        font-weight: 600;
-
-        @include vp-767 {
-          font-size: 20px;
-        }
+        font-weight: 400;
+        font-size: 20px;
       }
 
       ul {
         list-style: none;
-        padding: 10px 0 20px;
+        padding: 10px 0 55px;
+
+        @include vp-767 {
+          padding: 10px 0 20px;
+        }
 
         li {
           position: relative;
@@ -145,7 +200,7 @@ async function sendForm() {
             content: "✔";
             position: absolute;
             left: 0;
-            color: #2ecc71;
+            color: var(--color-medium-sea-green);
           }
         }
       }
@@ -153,6 +208,7 @@ async function sendForm() {
       .form__text {
         color: #555;
         font-size: 18px;
+        margin-top: auto;
       }
     }
 
@@ -160,14 +216,13 @@ async function sendForm() {
       background: white;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
       display: flex;
       flex-direction: column;
       gap: 12px;
 
-      input,
-      textarea {
-        padding: 14px 16px;
+      input, textarea {
+        padding: 10px 12px;
         border: 1px solid #ccc;
         border-radius: 8px;
         font-size: 18px;
@@ -175,22 +230,22 @@ async function sendForm() {
 
         &:focus {
           outline: none;
-          border-color: #2ecc71;
+          border-color: var(--color-medium-sea-green);
           box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
         }
       }
 
       textarea {
         resize: none;
-        min-height: 140px;
+        min-height: 120px;
       }
 
-      // Скрываем стандартный input file
+      /* скрываем дефолтный файл-инпут */
       input[type="file"] {
         display: none;
       }
 
-      // Кастомная кнопка загрузки файла
+      /* кастомная кнопка загрузки */
       .file-label {
         display: inline-block;
         background: #f5f5f5;
@@ -204,12 +259,12 @@ async function sendForm() {
 
         &:hover {
           background: #e8f6f0;
-          border-color: #2ecc71;
+          border-color: var(--color-medium-sea-green);
         }
       }
 
       button {
-        background: #2ecc71;
+        background: var(--color-medium-sea-green);
         color: white;
         padding: 14px;
         font-size: 16px;
@@ -219,8 +274,8 @@ async function sendForm() {
         transition: all 0.2s;
 
         &:hover {
-          background: #27ae60;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+          background: var(--color-medium-sea-green);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         &:disabled {
@@ -231,5 +286,4 @@ async function sendForm() {
     }
   }
 }
-
 </style>

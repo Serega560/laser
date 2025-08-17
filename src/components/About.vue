@@ -18,6 +18,15 @@ const images = [
   {id: 3, img: "photo_3.jpg"},
   {id: 4, img: "photo_4.jpg"},
   {id: 5, img: "photo_5.jpg"},
+  {id: 6, img: "photo_6.jpg"},
+  {id: 7, img: "photo_7.jpg"},
+  {id: 8, img: "photo_8.jpg"},
+  {id: 9, img: "photo_9.jpg"},
+  {id: 10, img: "photo_10.jpg"},
+  {id: 11, img: "photo_11.jpg"},
+  {id: 12, img: "photo_12.jpg"},
+  {id: 13, img: "photo_13.jpg"},
+  {id: 14, img: "photo_14.jpg"},
 ].map(({id, img}) => ({
   id,
   webp1x: new URL(`../assets/img/${img}?format=webp&width=400`, import.meta.url).href,
@@ -53,10 +62,10 @@ const images = [
 
         <div class="about__content">
           <h3 class="about__subtitle">Технологичная лазерная резка неметаллов на заказ.</h3>
-          <p class="about__text">Мы работаем на 19 современных станках с ЧПУ (до 300 Вт), режем точно, чисто и быстро.
-            От единичных деталей до крупных партий.
-            Максимальная рабочая зона — 1500×3000 см.
-            Работаем официально, с НДС и документами.</p>
+          <p class="about__text">Мы работаем на 19 современных станках с ЧПУ (до 300 Вт), режем точно, чисто и быстро.</p>
+          <p class="about__text">От единичных деталей до крупных партий.</p>
+          <p class="about__text">Максимальная рабочая зона — 1500×3000 см.</p>
+          <p class="about__text">Работаем официально, с НДС и документами.</p>
         </div>
       </div>
     </div>
@@ -79,7 +88,7 @@ const images = [
   .about__title {
     color: var(--color-bright-grey);
     font-size: 34px;
-    margin-bottom: 70px;
+    margin-bottom: 40px;
     text-align: center;
     text-transform: uppercase;
 
@@ -91,9 +100,9 @@ const images = [
 
   .about__block {
     display: grid;
-    grid-template-columns: 500px 600px;
-    gap: 0 100px;
-    align-items: flex-end;
+    grid-template-columns: 400px 1fr;
+    gap: 0 20px;
+    align-items: center;
 
     @include vp-767 {
       grid-template-columns: 1fr;
@@ -103,55 +112,41 @@ const images = [
     .about__swiper {
       will-change: transform;
       transform: translateZ(0);
-      width: 500px;
-
-      @include vp-767 {
-        width: 300px;
-        height: 300px;
-      }
+      width: 300px;
+      height: 300px;
     }
 
     .about__img {
-      width: 500px;
-      height: 500px;
+      width: 300px;
+      height: 300px;
+      min-height: 300px;
       object-fit: cover;
 
-      @include vp-767 {
-        width: 100%;
-        height: 100%;
-        min-height: 300px;
-      }
     }
   }
 
   .about__content {
-    display: flex;
-    flex-direction: column;
-    gap: 40px 0;
-
-    @include vp-767 {
-      gap: 20px 0;
-    }
 
     .about__subtitle {
-      font-size: 36px;
+      font-size: 24px;
       font-weight: 400;
       color: var(--color-bright-grey);
+      margin-bottom: 20px;
 
       @include vp-767 {
-        font-size: 24px;
-        line-height: 26px;
+        font-size: 22px;
+        line-height: 24px;
       }
     }
 
     .about__text {
-      font-size: 30px;
-      line-height: 40px;
+      font-size: 24px;
+      line-height: 32px;
       color: var(--color-bright-grey);
 
       @include vp-767 {
         font-size: 20px;
-        line-height: 22px;
+        line-height: 20px;
         text-align: justify;
       }
     }

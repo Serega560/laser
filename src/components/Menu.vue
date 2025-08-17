@@ -75,11 +75,9 @@ defineProps({
 
 // Массив пунктов меню для рендера
 const menuItems = [
-  { label: 'Главная', href: '#home' },
-  { label: 'Услуги', href: '#services' },
-  { label: 'Работы', href: '#work' },
-  { label: 'Получить расчет' },
-  { label: 'Написать нам', href: '#feedback' },
+  { label: 'Работы', href: '#products' },
+  { label: 'Вопросы', href: '#faq' },
+  { label: 'Написать нам', href: '#form' },
   { label: 'Оплата и доставка', href: '#payment' }
 ]
 </script>
@@ -211,7 +209,7 @@ const menuItems = [
     .menu__link {
       font-size: 30px;
       padding: 10px 20px;
-      color: var(--color-havelock-blue);
+      color: var(--color-bright-grey);
       background-color: var(--color-default-white);
       border: none;
       transition: all 0.3s;
@@ -240,22 +238,29 @@ const menuItems = [
   .menu__list--footer {
     all: unset;
     display: flex;
+    flex-direction: column;
     list-style: none;
-    gap: 15px;
 
     @include vp-767 {
       flex-direction: column;
+      align-items: center;
     }
 
     .menu__link {
-      color: white;
-      font-size: 34px;
+      color: var(--color-bright-grey);
+      font-size: 22px;
       align-self: flex-start;
+
+      &:hover {
+        color: var(--color-bright-grey);
+        background-color: var(--color-default-white);
+      }
 
       @include vp-767 {
         font-size: 20px;
-        width: 85px;
         text-align: center;
+        background-color: var(--color-default-white);
+        padding: 8px 15px;
       }
     }
   }
