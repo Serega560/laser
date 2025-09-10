@@ -17,9 +17,10 @@ import Menu from "@/components/Menu.vue";
         </li>
         <li class="footer__item footer__item--details">
           <h3>Реквизиты</h3>
-          <p>ООО "Масштаб"</p>
-          <p>ОГРНП 9999999999999999999</p>
-          <p>ИНН 00000000000000000000</p>
+          <p>ООО "МБ"</p>
+          <p>ОГРН 1085032001878</p>
+          <p>ИНН 5032183412</p>
+          <p>КПП 503201001</p>
         </li>
         <li class="footer__item footer__item--accounts">
           <h3>Аккаунты</h3>
@@ -45,13 +46,18 @@ import Menu from "@/components/Menu.vue";
   display: flex;
   background-color: var(--color-default-white);
 
+  @include vp-767 {
+    padding: 20px 0 20px;
+  }
+
   .footer__list {
     display: grid;
-    grid-template-columns: 1fr 1fr 350px 1fr 1fr;
+    grid-template-columns: 200px 280px 270px 130px 1fr;
+    gap: 70px;
 
     @include vp-767 {
       display: grid;
-      grid-template-columns: 200px auto;
+      grid-template-columns: 1fr 120px;
       grid-template-rows: auto auto auto;
       flex-wrap: wrap;
       gap: 20px 0;
@@ -70,14 +76,15 @@ import Menu from "@/components/Menu.vue";
     }
 
     &--details {
-      h3 {
+      h3,p {
         @include vp-767 {
           text-align: center;
+          margin-bottom: 10px;
         }
       }
 
       p:not(:last-child) {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
 
         @include vp-767 {
           margin-bottom: 6px;
@@ -97,7 +104,7 @@ import Menu from "@/components/Menu.vue";
         margin-left: 20px;
 
         @include vp-767 {
-          text-align: center;
+          text-align: start;
           margin-left: 0;
           margin-bottom: 10px;
         }
@@ -117,14 +124,21 @@ import Menu from "@/components/Menu.vue";
     }
 
     &--telephone {
+      justify-self: end;
 
       @include vp-767 {
         grid-column: 1/3;
         grid-row: 2/3;
+        justify-self: center;
+
       }
 
       h3 {
         margin-bottom: 10px;
+
+        @include vp-767 {
+          margin-bottom: 10px;
+        }
       }
 
       a {

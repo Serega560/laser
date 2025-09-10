@@ -1,14 +1,6 @@
 <script setup>
 import {ref} from "vue";
-import emailjs from "@emailjs/browser";
-
-// замените на свои значения из EmailJS
-const SERVICE_ID = "service_h9spmb8";
-const TEMPLATE_ID = "template_3nuim58";
-const PUBLIC_KEY = "atci2mh2vg7ROJnkQ";
-
 const formRef = ref(null);
-
 const name = ref("");
 const email = ref("");
 const phone = ref("");
@@ -41,44 +33,26 @@ function onPhoneInput(e) {
   phone.value = v.startsWith("+") ? "+" + v.slice(1).replace(/\D/g, "") : v.replace(/\D/g, "");
 }
 
-// ===== отправка через EmailJS =====
+ // сюда написать код отправки формы
 async function sendForm() {
-  if (!email.value && !phone.value) {
-    alert("Пожалуйста, укажите Email или Телефон.");
-    return;
-  }
-  if (email.value && !validateEmail(email.value)) {
-    alert("Пожалуйста, введите корректный Email.");
-    return;
-  }
-  if (phone.value && !validatePhone(phone.value)) {
-    alert("Пожалуйста, введите номер в формате +7XXXXXXXXXX.");
-    return;
-  }
+  loading.value = true;
+  const formData = new FormData(formRef.value);
 
   try {
-    loading.value = true;
-
-    // sendForm сам соберёт все поля и файл из formRef
-    await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.value, {
-      publicKey: PUBLIC_KEY,
+    const res = await fetch("sendmail.php", {
+      method: "POST",
+      body: formData,
     });
-
-    alert("Заявка отправлена!");
-    // сбрасываем всё
-    formRef.value.reset();
-    name.value = "";
-    email.value = "";
-    phone.value = "";
-    comment.value = "";
-    fileName.value = "📎 Прикрепить файл";
-  } catch (err) {
-    console.error("EmailJS error:", err);
-    alert(`Ошибка: ${err?.text || err?.message || "Неизвестная ошибка"}`);
+    const data = await res.json();
+    alert(data.message);
+  } catch (e) {
+    alert("Ошибка отправки");
   } finally {
     loading.value = false;
   }
 }
+
+
 </script>
 
 <template>
@@ -102,22 +76,22 @@ async function sendForm() {
 
         <!-- ВАЖНО: ref="formRef" и name-атрибуты -->
         <form ref="formRef" class="form__main" @submit.prevent="sendForm">
-          <input type="text" name="from_name" v-model="name" placeholder="Имя" required/>
+          <input type="text" name="name" v-model="name" placeholder="Имя" required/>
 
           <input
               type="tel"
-              name="from_phone"
+              name="phone"
               v-model="phone"
               @focus="onPhoneFocus"
               @input="onPhoneInput"
               placeholder="Телефон"
           />
 
-          <input type="email" name="from_email" v-model="email" placeholder="Email"/>
-          <textarea name="message" v-model="comment" rows="2" placeholder="Комментарий"></textarea>
+          <input type="email" name="email" v-model="email" placeholder="Email"/>
+          <textarea name="comment" v-model="comment" rows="2" placeholder="Комментарий"></textarea>
 
           <!-- ФАЙЛ: имя поля 'attachment' (EmailJS распознаёт как вложение) -->
-          <input type="file" id="file" name="attachment" @change="handleFile"/>
+          <input type="file" id="file" name="image" @change="handleFile"/>
           <label for="file" class="file-label">
             {{ fileName }}
           </label>
@@ -138,6 +112,7 @@ async function sendForm() {
 .form {
   padding: 80px 0;
   background: #f9f9f9;
+  //background-image: url('../assets/img/bc.jpg');
 
   .form__block {
     display: grid;

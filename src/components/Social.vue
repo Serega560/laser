@@ -38,6 +38,10 @@ defineProps({
   display: flex;
   gap: 0 3px;
   align-items: flex-start;
+  grid-column: 2/3;
+  grid-row: 1 / 2;
+  justify-self: center;
+  flex-wrap: wrap;
 
   @include vp-767 {
     gap: 0 8px;
@@ -48,11 +52,11 @@ defineProps({
     cursor: pointer;
 
     a {
-      padding: 14px 8px;
+      padding: 8px;
 
       &:hover {
         svg {
-          transform: scale(1.2);
+          transform: scale(1.1);
         }
       }
 
@@ -124,16 +128,21 @@ defineProps({
   }
 
   &--footer {
+    justify-self: start;
+
     @include vp-767 {
+      flex-wrap: wrap;
       order: 1;
-      flex-direction: column;
-      gap: 10px 0;
+      gap: 15px 15px;
       align-items: center;
+      justify-content: center;
     }
 
     .social__item {
+
       @include vp-767 {
-        height: 40px;
+        height: 35px;
+        width: 35px;
       }
 
       a {

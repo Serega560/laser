@@ -30,16 +30,26 @@ import Telephone from '@/components/Telephone.vue'
   background-color: var(--color-default-white);
 
   .header-block {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: start;
     justify-content: flex-end;
-    padding: 10px 0 20px;
+    padding: 10px 0;
     gap: 0 15px;
 
     @include vp-767 {
+      display: flex;
       padding: 8px 0;
       justify-content: space-between;
+    }
+
+    .header__menu {
+      grid-column: 2/4;
+      grid-row: 1 / 2;
+      align-self: end;
+      justify-self: end;
+      background-color: var(--color-default-white);
     }
   }
 }

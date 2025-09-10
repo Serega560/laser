@@ -62,6 +62,7 @@ const images = [
 
         <div class="about__content">
           <h3 class="about__subtitle">Технологичная лазерная резка неметаллов на заказ.</h3>
+          <p class="about__text">Наша организация 17 лет на рынке.</p>
           <p class="about__text">Мы работаем на 19 современных станках с ЧПУ (до 300 Вт), режем точно, чисто и быстро.</p>
           <p class="about__text">От единичных деталей до крупных партий.</p>
           <p class="about__text">Максимальная рабочая зона — 1500×3000 см.</p>
@@ -80,6 +81,7 @@ const images = [
 .about {
   margin-top: 200px;
   padding-top: 120px;
+  //background-image: url('../assets/img/bc.jpg');
 
   @include vp-767 {
     padding: 100px 0 0;
@@ -103,6 +105,7 @@ const images = [
     grid-template-columns: 400px 1fr;
     gap: 0 20px;
     align-items: center;
+
 
     @include vp-767 {
       grid-template-columns: 1fr;

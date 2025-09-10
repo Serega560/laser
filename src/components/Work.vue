@@ -82,6 +82,7 @@ const toggleStep = (index) => {
   background-color: #f9f9f9;
   position: relative;
   overflow: hidden;
+  //background-image: url('../assets/img/bc.jpg');
 
   &::before {
     content: '';
@@ -117,7 +118,7 @@ const toggleStep = (index) => {
 
   .for__title,
   .how__title {
-    color: var(--color-primary);
+    color: var(--color-bright-grey);
     font-size: 32px;
     margin-bottom: 40px;
     text-transform: uppercase;

@@ -57,6 +57,7 @@ const imagesProducts = [
 
 .products {
   padding: 80px 0;
+  //background-image: url('../assets/img/bc.jpg');
 
   @include vp-767 {
     padding: 40px 0;

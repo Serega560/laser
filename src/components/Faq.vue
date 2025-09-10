@@ -94,6 +94,7 @@ const toggle = async (index) => {
 
 .faq {
   padding: 80px;
+  //background-image: url('../assets/img/bc.jpg');
 
   @include vp-767 {
     padding: 30px 0;

@@ -182,7 +182,6 @@ const menuItems = [
     list-style: none;
     margin: 0;
     padding: 0;
-    background-color: var(--color-havelock-blue);
 
     @include vp-767 {
       display: flex;
@@ -208,7 +207,7 @@ const menuItems = [
 
     .menu__link {
       font-size: 30px;
-      padding: 10px 20px;
+      padding: 3px 24px;
       color: var(--color-bright-grey);
       background-color: var(--color-default-white);
       border: none;
@@ -243,13 +242,14 @@ const menuItems = [
 
     @include vp-767 {
       flex-direction: column;
-      align-items: center;
+      align-items: start;
     }
 
     .menu__link {
       color: var(--color-bright-grey);
       font-size: 22px;
       align-self: flex-start;
+      display: flex;
 
       &:hover {
         color: var(--color-bright-grey);
@@ -258,9 +258,10 @@ const menuItems = [
 
       @include vp-767 {
         font-size: 20px;
-        text-align: center;
+        text-align: start;
         background-color: var(--color-default-white);
-        padding: 8px 15px;
+        padding: 4px 0;
+        justify-content: start;
       }
     }
   }

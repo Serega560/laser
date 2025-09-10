@@ -12,7 +12,7 @@ defineProps({
 <template>
   <div class="logo" :class="{ 'logo--footer': inFooter }">
     <a class="img" href="index.html">
-      <img :src="Logo" alt="Logo" class="logo-img"/>
+      <img :src="Logo" alt="Logo" class="logo-img" width="1024" height="900" />
     </a>
   </div>
 </template>
@@ -34,9 +34,8 @@ defineProps({
     border: none;
 
     .logo-img {
-      border-radius: 50%;
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
 
       @include vp-767 {
         width: 50px;

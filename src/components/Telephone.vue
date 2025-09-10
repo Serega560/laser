@@ -22,15 +22,21 @@ defineProps({
 
 .telephone {
   display: flex;
-  align-items: center;
+  align-self: start;
   box-sizing: border-box;
   width: max-content;
-  padding: 12px 0;
+  padding: 14px 0;
   gap: 0 15px;
   color: var(--color-bright-grey);
+  grid-column: 3/4;
+  grid-row: 1 / 2;
 
   .telephone__item {
     font-size: 24px;
+
+    @include vp-767 {
+      font-size: 20px;
+    }
 
     &:hover {
       color: var(--color-havelock-blue);
@@ -46,11 +52,12 @@ defineProps({
 .telephone__list--footer {
   display: flex;
   flex-direction: column;
-  gap: 20px 0;
+  gap: 10px 0;
+  padding: 0;
 
   @include vp-767 {
     order: 3;
-    gap: 10px 0;
+    gap: 5px 0;
     align-items: center;
     justify-content: center;
     width: 100%;
